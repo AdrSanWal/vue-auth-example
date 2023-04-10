@@ -1,11 +1,10 @@
 <template>
   <div class="container">
-    <LoginView />
+    <router-view/>
   </div>
 </template>
 
 <script setup>
-  import LoginView from './views/LoginView.vue';
 
 </script>
 

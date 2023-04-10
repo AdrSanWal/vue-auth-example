@@ -8,28 +8,37 @@
             v-model="user">
 
     <label for="pass">Password</label>
-    <input type="text"
+    <input type="password"
             name="lastname"
             placeholder="Your password.."
             v-model="password">
 
     <button type="submit"
             @click.prevent="login">Submit</button>
+    <p>{{ error }}</p>
   </form>
 </div>
 </template>
 
 <script setup>
   import { ref } from 'vue'
+  import router from '../router'
   import { store } from '../store/authStore';
 
   const user = ref('')
   const password = ref('')
+  const error = ref('')
   const st = store()
 
   const login = async () => {
     const isLogged = await st.signIn(user.value, password.value)
-    console.log(isLogged)
+    if (isLogged) {
+      router.push({name: 'products'})
+    } else {
+      user.value = ''
+      password.value = ''
+      error.value = 'User or password not valid'
+    }
   }
 
 </script>
@@ -44,7 +53,7 @@
 
 }
 
-input[type=text], select {
+input[type=text], input[type=password], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -69,6 +78,8 @@ button[type=submit]:hover {
   background-color: #45a049;
 }
 
-
+p {
+  color: red;
+}
 
 </style>

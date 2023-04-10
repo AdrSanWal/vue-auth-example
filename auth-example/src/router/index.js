@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
+import { store } from '../store/authStore';
 
 const routes = [
   {
@@ -14,18 +15,35 @@ const routes = [
   {
     path: '/products',
     name: 'products',
-    component: () => import(/* webpackChunkName: "products" */ '../views/ListProducts.vue')
+    component: () => import(/* webpackChunkName: "products" */ '../views/ListProducts.vue'),
+    meta: {
+      authRequired: true
+    }
   },
   {
     path: '/carts',
     name: 'carts',
-    component: () => import(/* webpackChunkName: "carts" */ '../views/ListCarts.vue')
+    component: () => import(/* webpackChunkName: "carts" */ '../views/ListCarts.vue'),
+    meta: {
+      authRequired: true
+    }
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const st = store()
+  const isAuth = st.user.id != ''
+  const needAuth = to.meta.authRequired
+  if (needAuth && !isAuth) {
+    next('login')
+  } else {
+    next()
+  }
 })
 
 export default router
