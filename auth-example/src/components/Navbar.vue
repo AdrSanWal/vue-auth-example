@@ -1,15 +1,22 @@
 <template>
     <div class="nav">
       <div id="nav-left">
+        Navbar
+
         <router-link :to="{name: 'products'}">Products</router-link>
+        <router-link :to="{name: 'carts'}">Charts</router-link>
+
       </div>
-      <div id="nav-right">
+      <!-- <div id="nav-right">
         {{ st.user.username }}
-      </div>
+      </div> -->
     </div>
 </template>
 
 <script setup>
+  // import store from '../store/authStore'
+  // const st = store()
+  // console.log(st.user)
 
 </script>
 

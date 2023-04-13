@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+
     <router-view/>
-  </div>
+
 </template>
 
 <script setup>
@@ -14,20 +14,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-.container {
+  color: #18222c;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-// body {
-//   background-image: url("./assets/login.jpg");
-//   background-position: center center;
-//   background-size: cover;
-//   background-repeat: no-repeat;
-// }
-
 </style>

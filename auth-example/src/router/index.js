@@ -16,9 +16,6 @@ const routes = [
     path: '/products',
     name: 'products',
     component: () => import(/* webpackChunkName: "products" */ '../views/ListProducts.vue'),
-    meta: {
-      authRequired: true
-    }
   },
   {
     path: '/carts',
@@ -37,7 +34,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const st = store()
-  const isAuth = st.user.id != ''
+  const isAuth = st.user.id != 0
   const needAuth = to.meta.authRequired
   if (needAuth && !isAuth) {
     next('login')
