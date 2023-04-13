@@ -48,7 +48,6 @@ class ProductService {
     const headers = {...basicHeaders}
     const rawResponse = await fetchApi(path, method, headers)
     const response = await rawResponse.json()
-    console.log('categories', response)
     if (rawResponse.status == 200) {
       this.categories.value = response
     } else {

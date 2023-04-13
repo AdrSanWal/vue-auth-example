@@ -6,7 +6,7 @@
         <a class="category"
            v-for="(category, id) in categories"
            :key="id"
-           @click="filterByCategory(category)" active>
+           @click="filterByCategory(category, $event)">
             {{ category }}
       </a>
       </div>
@@ -39,15 +39,22 @@
   const productService = new ProductService()
   const products = productService.getProducts()
   const categories = productService.getCategories()
+  let categoryElementActive = null
 
   onBeforeMount(async () => {
     await productService.fetchProducts(pageProductLimit)
     await productService.fetchCategories()
   })
 
-  const filterByCategory = (category) => {
+  const filterByCategory = (category, el) => {
+    if (categoryElementActive) {
+      categoryElementActive.classList.remove("selected")
+    }
     productService.fetchCategoryProducts(category, pageProductLimit)
+    el.target.classList.add("selected")
+    categoryElementActive = el.target
   }
+
 
 </script>
 
@@ -79,6 +86,11 @@
         color: whitesmoke;
       }
 
+    }
+
+    .selected {
+      background-color: $primary-color;
+      color: whitesmoke;
     }
 
   }
