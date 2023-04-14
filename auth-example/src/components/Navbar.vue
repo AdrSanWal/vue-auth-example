@@ -1,49 +1,78 @@
 <template>
     <div class="nav">
       <div id="nav-left">
-        Navbar
-
         <router-link :to="{name: 'products'}">Products</router-link>
         <router-link :to="{name: 'carts'}">Charts</router-link>
 
       </div>
-      <!-- <div id="nav-right">
-        {{ st.user.username }}
-      </div> -->
+      <div id="nav-right" v-if="st.user.username">
+        <img src=""/>
+        <router-link :to="{name: 'user'}"
+                      id="username">
+                        {{ st.user.username }}
+        </router-link>
+        <router-link :to="{name: 'products'}"
+                      @click="st.signOut">Sign Out</router-link>
+      </div>
+      <div id="nav-right" v-else>
+        <router-link :to="{name: 'login'}">Sign In</router-link>
+      </div>
     </div>
 </template>
 
 <script setup>
-  // import store from '../store/authStore'
-  // const st = store()
-  // console.log(st.user)
+  // import ProductService from '../services/ProductService';
+  import { useAuthStore } from '../store/authStore'
+  const st = useAuthStore()
 
+
+//   const service = new ProductService()
+
+//   const refreshProducts = async () => {
+//     await service.fetchProducts(20)
+//   }
 </script>
 
-<style lasng="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+<style lang="scss" scoped>
 .nav {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 100%;
-  margin: 0;
   padding: 15px;
-  overflow: hidden;
-  background-color: grey;
-  font-size: 22px;
-}
+  background-color: $primary-color;
+  font-size: 20px;
 
-.nav > div {
-  color: whitesmoke;
+  div {
+    color: whitesmoke;
+  }
 }
 
 #nav-left > a {
   text-decoration:none;
   color: whitesmoke;
+  margin: 10px;
+  padding: 15px;
+
+  &:hover {
+    background-color: whitesmoke;
+    color: $primary-color;
+  }
+}
+
+#nav-right > a {
+  text-decoration:none;
+  color: whitesmoke;
+  margin: 5px;
+  padding: 10px;
+  font-size: smaller;
+}
+
+#username {
+  font-size: small;
 }
 </style>

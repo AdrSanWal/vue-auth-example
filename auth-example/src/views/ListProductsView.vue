@@ -1,7 +1,7 @@
 <template>
   <Navbar/>
   <div id="products-page">
-    <div id="products-filter">
+    <div id="categories-filter">
       <div id="categories">
         <a class="category"
            v-for="(category, id) in categories"
@@ -10,16 +10,6 @@
             {{ category }}
       </a>
       </div>
-
-
-      <!-- <ul id="categories">
-        <li class="category"
-            v-for="(category, id) in categories"
-            :key="id"
-            @click="filterByCategory(category)">{{ category }}
-
-         </li>
-      </ul> -->
     </div>
     <div id="list-products">
       <Product v-for="product in products"
@@ -36,21 +26,21 @@
   import ProductService from '../services/ProductService'
 
   const pageProductLimit = 20
-  const productService = new ProductService()
-  const products = productService.getProducts()
-  const categories = productService.getCategories()
+  const service = new ProductService()
+  const products = service.getProducts()
+  const categories = service.getCategories()
   let categoryElementActive = null
 
   onBeforeMount(async () => {
-    await productService.fetchProducts(pageProductLimit)
-    await productService.fetchCategories()
+    await service.fetchProducts(pageProductLimit)
+    await service.fetchCategories()
   })
 
   const filterByCategory = (category, el) => {
     if (categoryElementActive) {
       categoryElementActive.classList.remove("selected")
     }
-    productService.fetchCategoryProducts(category, pageProductLimit)
+    service.fetchCategoryProducts(category, pageProductLimit)
     el.target.classList.add("selected")
     categoryElementActive = el.target
   }
@@ -60,16 +50,16 @@
 
 <style lang="scss" scoped>
 #products-page {
-  margin: 0;
   display: flex;
   flex-direction: row;
 }
 
-#products-filter {
+#categories-filter {
   background-color: $secondary-color;
   min-width: 200px;
   text-align: left;
-  padding-top: 10px;
+  position: fixed;
+
 
   #categories {
     display: flex;
@@ -78,7 +68,7 @@
     .category  {
       color: inherit;
       text-decoration: none;
-      padding: 6px 25px;
+      padding: 7px 25px;
       cursor: pointer;
 
       &:hover {
@@ -94,24 +84,6 @@
     }
 
   }
-
-  // #categories {
-  //   width:100%;
-  //   list-style-type: none;
-  //   margin: 0;
-  //   padding: 0;
-
-  //   .category {
-  //     margin: 0px;
-  //     padding: 10px 25px;
-  //     cursor: pointer;
-
-  //     &:hover {
-  //       background-color: $primary-color;
-  //       color:white;
-  //     }
-  //   }
-  // }
 }
 
 
@@ -120,6 +92,7 @@
   flex-flow: row wrap;
   justify-content: space-between;
   align-content: flex-start;
+  margin-left: 200px;
 }
 
 </style>

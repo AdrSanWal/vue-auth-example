@@ -1,6 +1,8 @@
 <template>
   <Navbar/>
-  <h1>List Carts</h1>
+  <div>
+    <h1>List Carts</h1>
+  </div>
 </template>
 
 <script setup>

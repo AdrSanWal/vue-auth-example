@@ -1,22 +1,23 @@
 <template>
+  <Navbar/>
   <div class="login">
-  <form>
-    <label for="user">First Name</label>
-    <input type="text"
-            name="username"
-            placeholder="Your name.."
-            v-model="user">
+    <form>
+      <label for="user">First Name</label>
+      <input type="text"
+              name="username"
+              placeholder="Your name.."
+              v-model="user">
 
-    <label for="pass">Password</label>
-    <input type="password"
-            name="lastname"
-            placeholder="Your password.."
-            v-model="password">
+      <label for="pass">Password</label>
+      <input type="password"
+              name="lastname"
+              placeholder="Your password.."
+              v-model="password">
 
-    <button type="submit"
-            @click.prevent="login">Submit</button>
-            9uQFF1Lh
-    <p>{{ error }}</p>
+      <button type="submit"
+              @click.prevent="login">Submit</button>
+              9uQFF1Lh
+      <p>{{ error }}</p>
   </form>
 </div>
 </template>
@@ -24,17 +25,21 @@
 <script setup>
   import { ref } from 'vue'
   import router from '../router'
-  import { store } from '../store/authStore';
+  import Navbar from '../components/Navbar.vue'
+  import { useAuthStore } from '../store/authStore';
+  import { useUserStore } from '../store/userStore';
 
   const user = ref('')
   const password = ref('')
   const error = ref('')
-  const st = store()
+  const authStore = useAuthStore()
+  const userStore = useUserStore()
 
   const login = async () => {
-    const isLogged = await st.signIn(user.value, password.value)
+    const isLogged = await authStore.signIn(user.value, password.value)
     if (isLogged) {
       router.push({name: 'products'})
+      await userStore.getUserInfo(authStore.user.id, authStore.user.token)
     } else {
       user.value = ''
       password.value = ''
@@ -76,7 +81,7 @@ button {
 }
 
 button[type=submit]:hover {
-  background-color: #45a049;
+  background-color: $primary-color;
 }
 
 p {
