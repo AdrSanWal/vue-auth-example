@@ -14,7 +14,8 @@
       <div id="list-products">
         <Product v-for="product in products"
                 :key="product.id"
-                :product="product"/>
+                :product="product"
+                @click="storageProduct(product.id);$router.push({name: 'product', params: {id: product.id}})"/>
       </div>
     </template>
   </MainLayout>
@@ -46,6 +47,10 @@
     categoryElementActive = el.target
   }
 
+  const storageProduct = (id) => {
+    const productById = products.value.find(e => e.id == id)
+    localStorage.setItem ('product', JSON.stringify(productById))
+  }
 
 </script>
 

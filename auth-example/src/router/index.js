@@ -11,6 +11,9 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
+    meta: {
+      authRequired: false
+    }
   },
   {
     path: '/user',
@@ -24,6 +27,17 @@ const routes = [
     path: '/products',
     name: 'products',
     component: () => import(/* webpackChunkName: "products" */ '../views/ProductsListView.vue'),
+    meta: {
+      authRequired: false
+    }
+  },
+  {
+    path: '/products/:id',
+    name: 'product',
+    component: () => import(/* webpackChunkName: "product" */ '../views/ProductDetailView.vue'),
+    meta: {
+      authRequired: false
+    }
   },
   {
     path: '/carts',

@@ -12,12 +12,17 @@ class ProductService {
 
   constructor() {
     this.products = ref([])
+    this.product = ref({})
     this.categories = ref([])
     this.error = ref('')
   }
 
   getProducts() {
     return this.products
+  }
+
+  getProduct() {
+    return this.product
   }
 
   getCategories() {
@@ -68,6 +73,18 @@ class ProductService {
     }
   }
 
+  async fetchProductById(id) {
+    const path = `/products/${id}`
+    const method = 'GET'
+    const headers = {...basicHeaders}
+    const rawResponse = await fetchApi(path, method, headers)
+    const response = await rawResponse.json()
+    if (rawResponse.status == 200) {
+      this.product.value = response
+    } else {
+      this.error.value = response.message
+    }
+  }
 }
 
 export default ProductService
