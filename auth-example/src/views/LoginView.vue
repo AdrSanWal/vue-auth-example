@@ -1,33 +1,36 @@
 <template>
-  <Navbar/>
-  <div class="login">
-    <form>
-      <label for="user">First Name</label>
-      <input type="text"
-              name="username"
-              placeholder="Your name.."
-              v-model="user">
+  <MainLayout>
+    <template #main>
+      <div class="login">
+        <form>
+          <label for="user">First Name</label>
+          <input type="text"
+                  name="username"
+                    placeholder="Your name.."
+                    v-model="user">
 
-      <label for="pass">Password</label>
-      <input type="password"
-              name="lastname"
-              placeholder="Your password.."
-              v-model="password">
+          <label for="pass">Password</label>
+          <input type="password"
+                  name="lastname"
+                  placeholder="Your password.."
+                  v-model="password">
 
-      <button type="submit"
-              @click.prevent="login">Submit</button>
-              9uQFF1Lh
-      <p>{{ error }}</p>
-  </form>
-</div>
+          <button type="submit"
+                  @click.prevent="login">Submit</button>
+                  9uQFF1Lh
+          <p>{{ error }}</p>
+        </form>
+      </div>
+    </template>
+  </MainLayout>
 </template>
 
 <script setup>
   import { ref } from 'vue'
   import router from '../router'
-  import Navbar from '../components/Navbar.vue'
   import { useAuthStore } from '../store/authStore';
   import { useUserStore } from '../store/userStore';
+  import MainLayout from '@/layouts/MainLayout.vue';
 
   const user = ref('')
   const password = ref('')

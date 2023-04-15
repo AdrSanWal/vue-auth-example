@@ -1,5 +1,5 @@
 <template>
-  <Navbar/>
+  <NavBar/>
   <div>
     <!-- <ul>
       <li v-for="data in st.user" :key="data.id">{{ data }}</li>
@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-  import Navbar from '../components/Navbar.vue'
+  import NavBar from '../components/NavBar.vue'
   import { useUserStore } from '../store/userStore'
 
   const userStore = useUserStore()

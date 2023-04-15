@@ -1,26 +1,27 @@
 <template>
-  <Navbar/>
-  <div id="products-page">
-    <div id="categories-filter">
-      <div id="categories">
-        <a class="category"
-           v-for="(category, id) in categories"
-           :key="id"
-           @click="filterByCategory(category, $event)">
-            {{ category }}
-      </a>
+  <MainLayout>
+    <template #main>
+      <div id="categories-filter">
+        <div id="categories">
+          <a class="category"
+            v-for="(category, id) in categories"
+            :key="id"
+            @click="filterByCategory(category, $event)">
+              {{ category }}
+          </a>
+        </div>
       </div>
-    </div>
-    <div id="list-products">
-      <Product v-for="product in products"
-              :key="product.id"
-              :product="product"/>
-    </div>
-  </div>
+      <div id="list-products">
+        <Product v-for="product in products"
+                :key="product.id"
+                :product="product"/>
+      </div>
+    </template>
+  </MainLayout>
 </template>
 
 <script setup>
-  import Navbar from '../components/Navbar.vue'
+  import MainLayout from '@/layouts/MainLayout.vue';
   import Product from '../components/Product.vue'
   import { onBeforeMount } from 'vue';
   import ProductService from '../services/ProductService'
@@ -49,14 +50,9 @@
 </script>
 
 <style lang="scss" scoped>
-#products-page {
-  display: flex;
-  flex-direction: row;
-}
-
 #categories-filter {
   background-color: $secondary-color;
-  min-width: 200px;
+  min-width: $sidebar-width;
   text-align: left;
   position: fixed;
 
@@ -86,13 +82,10 @@
   }
 }
 
-
 #list-products {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
-  align-content: flex-start;
-  margin-left: 200px;
+  justify-content: center;
+  margin-left: $sidebar-width;
 }
-
-</style>
+  </style>

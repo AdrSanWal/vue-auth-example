@@ -1,7 +1,5 @@
 <template>
-
     <router-view/>
-
 </template>
 
 <script setup>
@@ -20,8 +18,6 @@ import { useAuthStore } from './store/authStore';
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #18222c;
-  display: flex;
-  justify-content: center;
 }
 
 body {
