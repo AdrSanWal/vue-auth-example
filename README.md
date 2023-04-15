@@ -1,6 +1,6 @@
 # vue-auth-example
 
-cd auth-ezample
+cd auth-example
 
 npm install
 
