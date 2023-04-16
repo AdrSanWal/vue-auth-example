@@ -3,10 +3,6 @@
 </template>
 
 <script setup>
-import { useAuthStore } from './store/authStore';
-// Check if user is loged ('user' in localstorage)
-  const authStore = useAuthStore()
-  authStore.isAlreadyLogged()
 
 
 </script>

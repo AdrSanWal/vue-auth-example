@@ -4,18 +4,18 @@
       <div id="categories-filter">
         <div id="categories">
           <a class="category"
-            v-for="(category, id) in categories"
+            v-for="(category, id) in productStore.categories"
             :key="id"
-            @click="filterByCategory(category, $event)">
+            @click="filterByCategory(category)">
               {{ category }}
           </a>
         </div>
       </div>
       <div id="list-products">
-        <Product v-for="product in products"
+        <Product v-for="product in productStore.products"
                 :key="product.id"
                 :product="product"
-                @click="storageProduct(product.id);$router.push({name: 'product', params: {id: product.id}})"/>
+                @click="$router.push({name: 'product', params: {id: product.id}})"/>
       </div>
     </template>
   </MainLayout>
@@ -25,31 +25,18 @@
   import MainLayout from '@/layouts/MainLayout.vue';
   import Product from '../components/Product.vue'
   import { onBeforeMount } from 'vue';
-  import ProductService from '../services/ProductService'
+  import { useProductStore } from '../store/productStore';
 
-  const pageProductLimit = 20
-  const service = new ProductService()
-  const products = service.getProducts()
-  const categories = service.getCategories()
-  let categoryElementActive = null
+
+  const productStore = useProductStore()
 
   onBeforeMount(async () => {
-    await service.fetchProducts(pageProductLimit)
-    await service.fetchCategories()
+    await productStore.getProducts()
+    await productStore.getCategories()
   })
 
-  const filterByCategory = (category, el) => {
-    if (categoryElementActive) {
-      categoryElementActive.classList.remove("selected")
-    }
-    service.fetchCategoryProducts(category, pageProductLimit)
-    el.target.classList.add("selected")
-    categoryElementActive = el.target
-  }
-
-  const storageProduct = (id) => {
-    const productById = products.value.find(e => e.id == id)
-    localStorage.setItem ('product', JSON.stringify(productById))
+  const filterByCategory = (category) => {
+    productStore.getProducts(category)
   }
 
 </script>
