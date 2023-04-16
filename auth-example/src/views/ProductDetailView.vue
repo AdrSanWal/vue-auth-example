@@ -28,8 +28,14 @@
 <script setup>
 import MainLayout from '../layouts/MainLayout.vue';
 import { ref, computed } from 'vue'
+import { useProductStore } from '../store/productStore.js'
+import { useRoute } from 'vue-router';
 
-  const product = JSON.parse(localStorage.getItem ('product'))
+  const route = useRoute()
+  const productStore = useProductStore()
+  const product = productStore.selectProductById(route.params.id)
+
+
   const image = ref(0)
   const imgIndex = [...Array(product.images.length).keys()]
 
