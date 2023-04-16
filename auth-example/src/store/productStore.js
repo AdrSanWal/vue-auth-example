@@ -17,16 +17,14 @@ export const useProductStore = defineStore('product', {
         path = `/products/category/${category}?limit=${this.pageProductLimit}&skip=${this.pageProductSkip}`
       }
       const method = 'GET'
-      const rawResponse = await fetchApi(path, method)
-      const response = await rawResponse.json()
+      const response = await fetchApi(path, method)
       this.products = response.products
     },
 
     async getCategories() {
       const path = `/products/categories`
       const method = 'GET'
-      const rawResponse = await fetchApi(path, method)
-      const response = await rawResponse.json()
+      const response = await fetchApi(path, method)
       this.categories = response
     },
 

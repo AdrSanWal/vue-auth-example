@@ -21,7 +21,6 @@
 </template>
 
 <script setup>
-// import ProductService from '../services/ProductService';
 import { useAuthStore } from '../store/authStore'
 import { useProductStore } from '../store/productStore';
 const authStore = useAuthStore()

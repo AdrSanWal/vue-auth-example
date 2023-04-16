@@ -16,7 +16,7 @@
                   v-model="password">
 
           <button type="submit"
-                  @click.prevent="login">Submit</button>
+                  @click.prevent="login();$router.push({name: 'products'})">Submit</button>
                   9uQFF1Lh
           <p>{{ error }}</p>
         </form>
@@ -27,27 +27,17 @@
 
 <script setup>
   import { ref } from 'vue'
-  import router from '../router'
   import { useAuthStore } from '../store/authStore';
-  import { useUserStore } from '../store/userStore';
   import MainLayout from '@/layouts/MainLayout.vue';
 
   const user = ref('')
   const password = ref('')
-  const error = ref('')
   const authStore = useAuthStore()
-  const userStore = useUserStore()
+  const error = ref('')
 
   const login = async () => {
     const isLogged = await authStore.signIn(user.value, password.value)
-    if (isLogged) {
-      router.push({name: 'products'})
-      await userStore.getUserInfo(authStore.user.id, authStore.user.token)
-    } else {
-      user.value = ''
-      password.value = ''
-      error.value = 'User or password not valid'
-    }
+    if (!isLogged) { error.value = 'User or password not valid' }
   }
 
 </script>
@@ -85,6 +75,7 @@ button {
 
 button[type=submit]:hover {
   background-color: $primary-color;
+  font-weight: bold;
 }
 
 p {

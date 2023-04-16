@@ -12,5 +12,7 @@ export const fetchApi = async (path, method, auth=null, body=null) => {
     headers: {...headers, ...auth},
     body: body ? JSON.stringify(body) : null
   });
-  return rawResponse
+
+  const response = await rawResponse.json()
+  return response
 }
