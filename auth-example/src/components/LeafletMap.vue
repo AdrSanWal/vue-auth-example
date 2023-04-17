@@ -3,7 +3,7 @@
     <LMap id="map"
           ref="mymap"
           :options="lMap.options"
-          :center="lMap.center.value"
+          :center="coord"
           :zoom="lMap.zoom"
           :style="{cursor: mapCursor}"
 
@@ -25,7 +25,7 @@
         :layer-type="lTileLayer.layerType"
         :name="lTileLayer.name">
       </LTileLayer>
-    <LMarker :lat-lng="lMarker.coords.value" ></LMarker>
+    <LMarker :lat-lng="coord" ></LMarker>
   </LMap>
   </div>
 </template>
@@ -35,28 +35,26 @@ import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LControl } from "@vue-leaflet/vue-leaflet";
 import { defineProps, defineEmits, ref} from "vue";
 
-const mapCursor = ref('auto')
-
-
-const emit = defineEmits(['updateCoords'])
-
-const onReady = (ref) => {
-  const myMap = ref.mymap.leafletObject
-  console.log(myMap)
-  myMap.on('movestart', () => mapCursor.value = 'grabbing')
-  myMap.on('moveend', () => mapCursor.value = 'auto')
-  myMap.on('dblclick', (e) => {
-    const newLatLon = [e.latlng.lat, e.latlng.lng]
-    lMap.center.value = newLatLon
-    lMarker.coords.value = newLatLon
-    emit('updateCoords', newLatLon)
-  })
-}
 
 const props = defineProps({
   lat: {type: Number, required: false, default: 40.417},
   lon: {type: Number, required: false, default: -3.704}
 })
+
+const mapCursor = ref('auto')
+const coord = ref([props.lat, props.lon])
+
+const emit = defineEmits(['updateCoords'])
+
+const onReady = (ref) => {
+  const myMap = ref.mymap.leafletObject
+  myMap.on('movestart', () => mapCursor.value = 'grabbing')
+  myMap.on('moveend', () => mapCursor.value = 'auto')
+  myMap.on('dblclick', (e) => {
+    coord.value = [e.latlng.lat, e.latlng.lng]
+    emit('updateCoords', coord.value)
+  })
+}
 
 const lTileLayer = {
   url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -72,12 +70,7 @@ const lMap = {
     zoomDelta: 0.25, //TODO: try to make this work
     zoomSnap: 0, //TODO: try to make this work
   },
-  center: ref([props.lat, props.lon]),
   zoom: 12
-}
-
-const lMarker = {
-  coords: ref([props.lat, props.lon])
 }
 
 const lControl = {

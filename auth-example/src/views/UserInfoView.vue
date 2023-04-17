@@ -48,13 +48,12 @@
 
         <div class="map">
           <LeafletMap :lat="authStore.user.address.coordinates.lat"
-                      :lon="authStore.user.address.coordinates.lng"/>
+                      :lon="authStore.user.address.coordinates.lng"
+                      @updateCoords="updateCoords"/>
         </div>
 
       </div>
     </form>
-    <p>User</p>
-    <p>{{ authStore.user }}</p>
   </div>
 </template>
 
@@ -65,6 +64,10 @@
 
   const authStore = useAuthStore()
 
+  const updateCoords = (coords) => {
+    authStore.user.address.coordinates.lat = coords[0]
+    authStore.user.address.coordinates.lng = coords[1]
+  }
 
 </script>
 
