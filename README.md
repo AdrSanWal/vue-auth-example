@@ -44,8 +44,8 @@ Start with Docker (requires Docker):
 
     localhost:8080
     
-=
 Observations:
+=
 
 I have put aside the aesthetic part to focus on functionality.
 
