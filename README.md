@@ -28,7 +28,7 @@ Start locally (requires Node):
 
     localhost:8080
     
-=
+
 Start with Docker (requires Docker):
 =
 
@@ -44,3 +44,20 @@ Start with Docker (requires Docker):
 
     localhost:8080
     
+=
+Observations:
+
+I have put aside the aesthetic part to focus on functionality.
+
+Since you cannot modify the records in the API, you cannot create users, but you can use the ones that are already included.
+
+Some examples to login:
+
+  "username": "atuny0",
+  "password": "9uQFF1Lh"
+  
+   "username": "kmeus4",
+  "password": "aUTdmmmbH"
+  
+  "username": "lgribbinc",
+  "password": "ftGj8LZTtv9g"
