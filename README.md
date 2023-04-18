@@ -7,7 +7,7 @@ Therefore, the operations carried out do not have persistence.
 
 I'm not a professional programmer and everything here has been done from scratch and researched on my own, so if you see something that could be improved, let me know. All constructive criticism is welcome.
 
-Instructions:
+Start locally (requires Node):
 =
 
 1º Clone the repository to a folder:
@@ -27,3 +27,20 @@ Instructions:
 4º Access page:
 
     localhost:8080
+    
+=
+Start with Docker (requires Docker):
+=
+
+1º Get the image from docker hub:
+
+    docker pull adrsanwal/vue-auth-example:1.0.0
+    
+2ª Run the container:
+
+    docker run -d -p 8080:8080 adrsanwal/vue-auth-example:1.0.0
+    
+3º Access page:
+
+    localhost:8080
+    
