@@ -17,7 +17,6 @@
 
           <button type="submit"
                   @click.prevent="login();$router.push({name: 'products'})">Submit</button>
-                  9uQFF1Lh
           <p>{{ error }}</p>
         </form>
       </div>
