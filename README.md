@@ -16,12 +16,13 @@ Instructions:
 
 2º Instal Node:
 
-  cd vue-auth-example/auth-example
-  npm install
+    cd vue-auth-example/auth-example
+    
+    npm install
 
 3º Run server:
 
-  npm run serve
+    npm run serve
   
 4º Access page:
 
