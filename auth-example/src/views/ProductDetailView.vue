@@ -6,7 +6,7 @@
           <p id="discount">SALE<br/>{{ product.discountPercentage }} %<br/>OFF</p>
           <button class="btn left" @click="changeImage('<')">&lt;</button>
             <img class="image"
-                 :src="product.images[image]">
+                 :src="image">
           <button class="btn right" @click="changeImage('>')">&gt;</button>
         </div>
         <div class="product-info">
@@ -20,7 +20,11 @@
           </div>
           <div class="add">
             <label>Quantity:</label>
-            <input class="quantity-item" type="number" v-model="quantity"/>
+            <input class="quantity-item"
+                   type="number"
+                   v-model="quantity"
+                   min="1"
+                   :max="product.stock"/>
             <button class="add-item" @click="cartStore.addItem(product, quantity)">Add to Cart</button>
 
           </div>
@@ -33,7 +37,7 @@
 
 <script setup>
 import MainLayout from '../layouts/MainLayout.vue';
-import { ref, computed } from 'vue'
+import { ref, computed, onBeforeMount } from 'vue'
 import { useProductStore } from '../store/productStore.js'
 import { useCartStore } from '../store/cartStore';
 import { useRoute } from 'vue-router';
@@ -41,27 +45,32 @@ import { useRoute } from 'vue-router';
   const route = useRoute()
   const productStore = useProductStore()
   const cartStore = useCartStore()
-  const product = productStore.selectProductById(route.params.id)
-
-
-  const image = ref(0)
+  const product = ref({})
+  const imgIndex = ref([])
+  const imageIndex = ref(0)
   const quantity = ref(1)
-  const imgIndex = [...Array(product.images.length).keys()]
+  const image = ref('')
+
+  onBeforeMount(async () => {
+    product.value = await productStore.selectProductById(route.params.id)
+    imgIndex.value = [...Array(product.value.images.length).keys()]
+    image.value = product.value.images[imageIndex.value]
+  })
 
   const changeImage = (direction) => {
-    console.log(product.images[0])
     if (direction == '<') {
-      if ( image.value == 0 ) {
-        image.value = imgIndex.at(-1)
-      } else { image.value-- }
+      if ( imageIndex.value == 0 ) {
+        imageIndex.value = imgIndex.value.at(-1)
+      } else { imageIndex.value-- }
     } else {
-      if ( image.value == imgIndex.at(-1)) {
-        image.value = 0
-      } else { image.value++ }
+      if ( imageIndex.value == imgIndex.value.at(-1)) {
+        imageIndex.value = 0
+      } else { imageIndex.value++ }
     }
+    image.value = product.value.images[imageIndex.value]
   }
 
-  const after = computed(()=> (product.price * (1 - product.discountPercentage / 100)).toFixed(2))
+  const after = computed(()=> (product.value.price * (1 - product.value.discountPercentage / 100)).toFixed(2))
 
 </script>
 

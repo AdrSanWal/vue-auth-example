@@ -10,7 +10,10 @@
           <th @click="cartStore.sortBy('discountedPrice')">Final Price</th>
 
         </tr>
-        <tr v-for="item in cartStore.cart" :key="item.id" class="info">
+        <tr v-for="item in cartStore.cart"
+            :key="item.id"
+            class="info"
+            @click="$router.push({name: 'product', params: {id: item.id}})">
           <td>{{ item.title }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item.price }} €</td>

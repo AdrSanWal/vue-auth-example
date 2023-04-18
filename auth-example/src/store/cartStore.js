@@ -25,10 +25,8 @@ export const useCartStore = defineStore('cart', {
     },
 
     sortBy(field) {
-      console.log(field)
       const c = [...this.cart]
       const sortedC = c.sort((a, b) => (a[field] > b[field]) ? 1 : -1)
-      console.log(this.cart, sortedC)
       if (this.cart == sortedC) {
         this.cart.reverse()
       } else {
@@ -51,7 +49,6 @@ export const useCartStore = defineStore('cart', {
         "discountedPrice": Math.round(item.price * quantity * ( 1 - (item.discountPercentage/100)))
       }
 
-      console.log(newItem)
       const itemInCart = this.cart.findIndex((element) => element.id == item.id)
       if (itemInCart != -1) {
         this.cart[itemInCart].quantity += newItem.quantity

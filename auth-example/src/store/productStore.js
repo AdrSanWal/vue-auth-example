@@ -28,8 +28,13 @@ export const useProductStore = defineStore('product', {
       this.categories = response
     },
 
-    selectProductById(id) {
-      return this.products.find(element => element.id == id)
+    async selectProductById(id) {
+      const product = this.products.find(element => element.id == id)
+      if (product) { return product }
+      const path = `/products/${id}`
+      const method = 'GET'
+      const response = await fetchApi(path, method)
+      return response
     }
   }
 })
