@@ -2,8 +2,8 @@
 
 This is a project to practice vue authentication.
 
-Para ello he utilizado la api alojada en https://dummyjson.com/
-Por lo que las operaciones realizadas no tienen persistencia.
+For this I have used the api hosted at https://dummyjson.com/
+Therefore, the operations carried out do not have persistence.
 
 I'm not a professional programmer and everything here has been done from scratch and researched on my own, so if you see something that could be improved, let me know. All constructive criticism is welcome.
 
