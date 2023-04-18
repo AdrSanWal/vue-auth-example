@@ -1,6 +1,7 @@
 
 import { defineStore } from 'pinia'
 import { fetchApi } from '../composables/useApi'
+import { useCartStore } from './cartStore'
 
 
 export const useAuthStore = defineStore('auth', {
@@ -28,6 +29,8 @@ export const useAuthStore = defineStore('auth', {
       if (!('message' in response)) {
         this.token = response.token
         this.user = this.getUserInfo(response.id, this.token)
+        const cartStore = useCartStore()
+        cartStore.getCartProducts(response.id, this.token)
         return true
       } return false
     },
