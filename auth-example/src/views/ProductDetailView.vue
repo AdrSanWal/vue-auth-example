@@ -18,7 +18,7 @@
             <p>{{ product.stock }} in stock</p>
             <p>valoration: {{ product.rating }}</p>
           </div>
-          <div class="add">
+          <div class="add" v-if="authStore.user.username">
             <label>Quantity:</label>
             <input class="quantity-item"
                    type="number"
@@ -40,11 +40,13 @@ import MainLayout from '../layouts/MainLayout.vue';
 import { ref, computed, onBeforeMount } from 'vue'
 import { useProductStore } from '../store/productStore.js'
 import { useCartStore } from '../store/cartStore';
+import { useAuthStore } from '../store/authStore';
 import { useRoute } from 'vue-router';
 
   const route = useRoute()
   const productStore = useProductStore()
   const cartStore = useCartStore()
+  const authStore = useAuthStore()
   const product = ref({})
   const imgIndex = ref([])
   const imageIndex = ref(0)

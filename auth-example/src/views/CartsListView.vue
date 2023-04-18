@@ -19,7 +19,7 @@
           <td>{{ item.price }} €</td>
           <td>{{ item.discountPercentage }} %</td>
           <td>{{ item.discountedPrice }} €</td>
-          <td class="imgtd" @click="cartStore.removeItem(item.id)">
+          <td class="imgtd" @click.stop="cartStore.removeItem(item.id)">
             <div class="imgdiv">
               <img class="img" :src ="`${publicPath}delete.png`">
             </div></td>
