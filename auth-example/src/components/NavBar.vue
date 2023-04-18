@@ -2,7 +2,7 @@
   <div class="nav">
     <div id="nav-left">
       <router-link :to="{name: 'products'}" @click="productStore.getProducts()">Products</router-link>
-      <router-link :to="{name: 'carts'}" v-if="authStore.user.username">My cart</router-link>
+      <router-link :to="{name: 'carts'}" v-if="authStore.user.username">My cart ({{ cartStore.totalProducts }})</router-link>
 
     </div>
     <div id="nav-right" v-if="authStore.user.username">
@@ -23,8 +23,10 @@
 <script setup>
 import { useAuthStore } from '../store/authStore'
 import { useProductStore } from '../store/productStore';
+import { useCartStore } from '../store/cartStore';
 const authStore = useAuthStore()
 const productStore = useProductStore()
+const cartStore = useCartStore()
 
 </script>
 
