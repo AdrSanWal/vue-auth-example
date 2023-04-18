@@ -12,17 +12,20 @@
 <script setup>
   import { defineProps } from 'vue';
 
+
   const props = defineProps({
     product: Object
   })
+
+
 </script>
 
 <style lang="scss" scoped>
 
 .product {
   position: relative;
-  width: 200px;
-  height: 150px;
+  width: 250px;
+  height: 200px;
   margin: 10px;
   padding: 10px;
   background-color: whitesmoke;

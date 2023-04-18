@@ -18,6 +18,12 @@
             <p>{{ product.stock }} in stock</p>
             <p>valoration: {{ product.rating }}</p>
           </div>
+          <div class="add">
+            <label>Quantity:</label>
+            <input class="quantity-item" type="number" v-model="quantity"/>
+            <button class="add-item" @click="cartStore.addItem(product, quantity)">Add to Cart</button>
+
+          </div>
         </div>
       </div>
     </template>
@@ -29,14 +35,17 @@
 import MainLayout from '../layouts/MainLayout.vue';
 import { ref, computed } from 'vue'
 import { useProductStore } from '../store/productStore.js'
+import { useCartStore } from '../store/cartStore';
 import { useRoute } from 'vue-router';
 
   const route = useRoute()
   const productStore = useProductStore()
+  const cartStore = useCartStore()
   const product = productStore.selectProductById(route.params.id)
 
 
   const image = ref(0)
+  const quantity = ref(1)
   const imgIndex = [...Array(product.images.length).keys()]
 
   const changeImage = (direction) => {
@@ -109,7 +118,7 @@ import { useRoute } from 'vue-router';
 .aux-info {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
   gap: 30px;
 }
 
@@ -122,4 +131,28 @@ import { useRoute } from 'vue-router';
   right: 10%;
   rotate: 18deg;
 }
+
+.add {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  .add-item {
+  width: 100px;
+  align-self: center;
+  border-radius: 5px;
+  background-color: $primary-color;
+  color: whitesmoke;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.quantity-item {
+  height: 100%;
+  width: 40px;
+  align-self: center;
+}
+
+}
+
+
 </style>
