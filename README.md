@@ -5,6 +5,8 @@ This is a project to practice vue authentication.
 For this I have used the api hosted at https://dummyjson.com/
 Therefore, the operations carried out do not have persistence.
 
+https://github.com/AdrSanWal/vue-auth-example/assets/82061736/6a6ee754-7119-4980-9dfd-8a1526468612
+
 I'm not a professional programmer and everything here has been done from scratch and researched on my own, so if you see something that could be improved, let me know. All constructive criticism is welcome.
 
 Start locally (requires Node):
